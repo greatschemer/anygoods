@@ -24,7 +24,7 @@ class Login extends CI_Controller {
 			$this->form_validation->set_rules('firstname', 'Имя', 'trim|required');
 			$this->form_validation->set_rules('lastname', 'Фамилия', 'trim|required');
 			$this->form_validation->set_rules('bdate', 'Дата рождения', 'trim');
-			$this->form_validation->set_rules('email', 'E-mail', 'trim|required|valid_email|callback_ccheck_email_reg');
+			$this->form_validation->set_rules('email', 'E-mail', 'trim|required|valid_email|callback_check_email_reg');
 			$this->form_validation->set_rules('pass1', 'Пароль', 'trim|required|min_length[6]|callback_check_password');
 
 			if($this->form_validation->run() == FALSE){
@@ -74,7 +74,7 @@ class Login extends CI_Controller {
 	}
 	//РЕГИСТРАЦИЯ - Проверка совпадают ли пароли
 	public function check_password($pass1){
-		$pass2 = $this->input->post('pass2');
+		$pass2 = $this->security->xss_clean($this->input->post('pass2'));
 		if($pass1 === $pass2){
 			return true;
 		}else{
@@ -99,7 +99,7 @@ class Login extends CI_Controller {
 	}
 	//Проверка Пользователя
 	public function check_password_login($password){
-		$email = $this->input->post('email');
+		$email = $this->security->xss_clean($this->input->post('email'));
 		$result = $this->login_model->check_user($email);
 		if($result){
 			//Проверка пароля
