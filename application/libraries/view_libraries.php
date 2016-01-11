@@ -5,9 +5,9 @@ class View_libraries {
     function view($dir, $data) {
     	$CI =& get_instance();
 
-	    $CI->load->view($dir . '/head', $data);
-		$CI->load->view($dir . '/body', $data);
-		$CI->load->view($dir . '/footer', $data);	        
+	    $CI->load->view('site/head', $data);
+		$CI->load->view('site/' . $dir . '/body', $data);
+		$CI->load->view('site/footer', $data);	        
     }
 }
 
