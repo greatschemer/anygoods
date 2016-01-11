@@ -7,16 +7,15 @@ class Categories extends CI_Controller {
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('main_model');
-
-		if ($this->session->userdata('enter')) {
-			$session = $this->session->userdata('enter');
-			$data['username'] = $session['username'];
-		}
 	}
 
 	public function index(){
 		$data['title'] = 'Категории';
 		$data['categories'] = $this->main_model->getAllCategories();
+		if ($this->session->userdata('enter')) {
+			$session = $this->session->userdata('enter');
+			$data['username'] = $session['username'];
+		}
 		$this->view_libraries->view('categories', $data);
 	}
 
@@ -25,6 +24,10 @@ class Categories extends CI_Controller {
 		if($this->check_category($idCategory)){
 			$data['goods'] = $this->main_model->getGoodsCategory($idCategory);
 			$data['title'] = 'Категория ' . $data['goods'][0]['ctitle'];
+			if ($this->session->userdata('enter')) {
+				$session = $this->session->userdata('enter');
+				$data['username'] = $session['username'];
+			}
 			$this->view_libraries->view('category', $data);
 		}else{
 			$data['title'] = 'Ошибка';
