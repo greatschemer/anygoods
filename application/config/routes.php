@@ -51,5 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'main';
 $route['category/(:any)'] = 'categories/showCategory/$1';
+$route['good/(:any)'] = 'good/showGood/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

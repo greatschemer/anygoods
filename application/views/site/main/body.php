@@ -1,7 +1,4 @@
-<h1>Работает</h1>	
-	<pre>
-		<? print_r($goods);?>
-	</pre>
+<h1>Главная</h1>	
 	<?php if(isset($username)):?>
 		Привет <?=$username;?><br>
 		<a href="<?=base_url();?>login/logout">Выход</a>
@@ -9,3 +6,8 @@
 		<a href="<?=base_url();?>login">Вход</a>	
 	<?php endif;?>
 	
+<ul>
+	<?php foreach($categories as $item):?>
+		<li><a href="<?=base_url();?>category/<?=$item['id']?>"><?=$item['title']?></a> ( <?=$item['total'];?> )</li>
+	<?php endforeach;?>
+</ul>

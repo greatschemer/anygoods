@@ -41,13 +41,24 @@ class Main_model extends CI_Model{
   }
   //Выводим товар определенной категории
   public function getGoodsCategory($id_category){
-    $this->db->select('categories.title as ctitle, goods.title, goods.brand, goods.price');
+    $this->db->select('categories.title as ctitle, goods.id, goods.title, goods.brand, goods.price, goods.count');
     $this->db->where('id_category', $id_category);
     $this->db->from('goods');
     $this->db->join('categories', 'categories.id = goods.id_category', 'left');
 
     $result = $this->db->get();
     return $result->result_array();
+  }
+  //Выводим информацию по товару
+  public function getInfoGood($idGood){
+    $this->db->select('categories.id as cid, categories.title as ctitle, goods.id, goods.title, goods.brand, goods.price, goods.count');
+    $this->db->where('goods.id', $idGood);
+    $this->db->from('goods');
+    $this->db->join('categories', 'categories.id = goods.id_category', 'left');
+    $this->db->limit('1');
+
+    $result = $this->db->get();
+    return $result->row_array();
   }
 }
 ?>

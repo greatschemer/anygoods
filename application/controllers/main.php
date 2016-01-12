@@ -11,7 +11,7 @@ class Main extends CI_Controller {
 
 	public function index(){
 		$data['title'] = 'Главная страница';
-		$data['goods'] = $this->main_model->getAllGoods();
+		$data['categories'] = $this->main_model->getAllCategories();
 		if ($this->session->userdata('enter')) {
 			$session = $this->session->userdata('enter');
 			$data['username'] = $session['username'];
