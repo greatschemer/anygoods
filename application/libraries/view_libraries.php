@@ -9,6 +9,13 @@ class View_libraries {
 		$CI->load->view('site/' . $dir . '/body', $data);
 		$CI->load->view('site/footer', $data);	        
     }
+    //Библиотека вида ошибок
+    function view_error($data) {
+    	$CI =& get_instance();
+
+		$CI->load->view('site/error/body', $data);
+       
+    }
 }
 
 ?>

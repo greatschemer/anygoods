@@ -33,7 +33,7 @@ class Categories extends CI_Controller {
 			$data['title'] = 'Ошибка';
 			$data['error'] = 'Такой категории не найдено';
 			$data['link'] = 'categories';
-			$this->view_libraries->view('error', $data);
+			$this->view_libraries->view_error($data);
 		}
 
 	}

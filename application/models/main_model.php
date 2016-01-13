@@ -39,6 +39,20 @@ class Main_model extends CI_Model{
       return false;
     }
   }
+  //Проверка есть ли товар
+  public function check_goods($idGood){
+    $this->db->select('id');
+    $this->db->from('goods');
+    $this->db->where('id', $idGood);
+
+    $result = $this->db->get();
+
+    if($result->num_rows() > 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
   //Выводим товар определенной категории
   public function getGoodsCategory($id_category){
     $this->db->select('categories.title as ctitle, goods.id, goods.title, goods.brand, goods.price, goods.count');

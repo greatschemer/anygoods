@@ -30,3 +30,10 @@
 		<?=form_close(); ?>	
 	<?php endif;?>
 </div>
+<div>
+	<?php if($this->uri->uri_string() !== 'cart'):?>
+		<a href="<?=base_url();?>cart">Корзина</a>
+	<?php else:?>
+		<a href="<?=base_url();?>">Продолжить покупки</a>
+	<?php endif;?>
+</div>

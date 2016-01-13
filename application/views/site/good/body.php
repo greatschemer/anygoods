@@ -6,7 +6,7 @@
 		<b>Категория: </b><?=$info['ctitle'];?>
 	</div>
 	
-	<a href="<?=base_url();?>cart/add/<?=$info['id']?>">Купить</a>
+	<a href="<?=base_url();?>cart/addToCart/<?=$info['id']?>">Добавить в корзину</a>
 	<div>
 		<a href="<?=base_url();?>category/<?=$info['cid'];?>">Назад</a>
 	</div>
