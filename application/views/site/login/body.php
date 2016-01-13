@@ -1,13 +1,4 @@
 <h1>Вход на сайт</h1>
-<!--Если регистрация прошла успешно выводи ГУД-->
-
-<div class="success">
-	<?php 
-		if($this->session->flashdata('success')){
-			echo $this->session->flashdata('success');
-		}
-	?>
-</div>
 
 <!--Ошибки выводи тута-->
 <div class="error">

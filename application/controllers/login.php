@@ -11,8 +11,7 @@ class Login extends CI_Controller {
 	
 	//по умолчанию грузится форма входа
 	public function index(){
-		$data['title'] = 'Вход на сайт';
-		$this->view_libraries->view('login', $data);
+		redirect(base_url());
 	}
 
 	//Регистрация нового пользователя
@@ -51,7 +50,7 @@ class Login extends CI_Controller {
      			//Добавляем данные в БД
      			if($this->login_model->add_user($inset)){
      				$this->session->set_flashdata('success', 'Пользователь успешно добавлен!');
-     				redirect('login');
+     				redirect(base_url());
      			}else{
      				$data['error'] = 'Произошла системная ошибка';
      				$this->view_libraries->view('registration', $data);
@@ -84,17 +83,25 @@ class Login extends CI_Controller {
 	}
 	//Вход пользователя на сайт
 	public function authentication(){
-		$data['title'] = 'Вход на сайт';
-
+		//Откуда прошла авторизация
+		if($this->agent->referrer()){
+    		$url_ref = $this->agent->referrer();
+    	}
 		$this->form_validation->set_rules('email', 'E-mail', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Пароль', 'trim|required|min_length[6]|callback_check_password_login');
 
 		if($this->form_validation->run() == FALSE){
 			//Загрузка вида и выводим ошибки
+			$data['title'] = 'Вход на сайт';
      		$this->view_libraries->view('login', $data);
      	}else{
      		//Если все хорошо
-     		redirect('main');
+     		if(isset($url_ref)){
+     			redirect($url_ref);
+     		}else{
+     			redirect(base_url());
+     		}
+     		
      	}
 	}
 	//Проверка Пользователя
