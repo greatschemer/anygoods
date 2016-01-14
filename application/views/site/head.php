@@ -37,3 +37,8 @@
 		<a href="<?=base_url();?>">Продолжить покупки</a>
 	<?php endif;?>
 </div>
+<?php if($this->uri->uri_string() !== 'search'):?>
+<div>
+	<a href="<?=base_url();?>search">Поиск</a>
+</div>
+<?php endif;?>

@@ -74,5 +74,22 @@ class Main_model extends CI_Model{
     $result = $this->db->get();
     return $result->row_array();
   }
+
+  //Поиск товара
+  public function searchGoods($string){
+    $this->db->select('categories.title as ctitle, goods.id, goods.title');
+    $this->db->from('goods');
+    $this->db->like('goods.title', $string);
+    $this->db->join('categories', 'categories.id = goods.id_category', 'left');
+
+    $result = $this->db->get();
+
+    if($result->num_rows() > 0){
+      return $result->result_array();
+    }else{
+      return false;
+    }
+
+  }
 }
 ?>
