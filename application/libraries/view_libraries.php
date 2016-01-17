@@ -16,6 +16,14 @@ class View_libraries {
 		$CI->load->view('site/error/body', $data);
        
     }
+    function view_admin($dir, $data) {
+        $CI =& get_instance();
+
+        $CI->load->view('admin/head', $data);
+        $CI->load->view('admin/' . $dir . '/body', $data);
+        $CI->load->view('admin/footer', $data);   
+       
+    }
 }
 
 ?>
