@@ -8,4 +8,14 @@
 <?php if(isset($useradmin)):?>
 	Привет <?=$useradmin;?><br>
 	<a href="<?=base_url();?>admin/logout">Выход</a>
+	
+	<ul>
+		<li><a href="<?=base_url();?>admin">Главная</a></li>
+		<li><a href="<?=base_url();?>admin/categories">Категории</a></li>
+		<li><a href="<?=base_url();?>admin/goods">Товары</a></li>
+		<li><a href="<?=base_url();?>admin/orders">Заказы</a></li>
+	</ul>
+
+	<hr>
 <?php endif;?>
+

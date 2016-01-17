@@ -20,7 +20,7 @@ class View_libraries {
         $CI =& get_instance();
 
         $CI->load->view('admin/head', $data);
-        $CI->load->view('admin/' . $dir . '/body', $data);
+        $CI->load->view('admin/' . $dir , $data);
         $CI->load->view('admin/footer', $data);   
        
     }

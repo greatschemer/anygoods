@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 		}else{
 			//Загрузка вида
 			$data['title'] = 'Вход на сайт';
-			$this->view_libraries->view_admin('login', $data);
+			$this->view_libraries->view_admin('login/body', $data);
 		}
 	}
 	public function authentication(){
@@ -24,7 +24,7 @@ class Login extends CI_Controller {
 		if($this->form_validation->run() == FALSE){
 			//Загрузка вида и выводим ошибки
 			$data['title'] = 'Вход на сайт';
-     		$this->view_libraries->view_admin('login', $data);
+     		$this->view_libraries->view_admin('login/body', $data);
      	}else{
      		//Если все хорошо
      		redirect(base_url() . 'admin');
