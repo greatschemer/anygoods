@@ -11,6 +11,7 @@
 	
 	<ul>
 		<li><a href="<?=base_url();?>admin">Главная</a></li>
+		<li><a href="<?=base_url();?>admin/users">Пользователи</a></li>
 		<li><a href="<?=base_url();?>admin/categories">Категории</a></li>
 		<li><a href="<?=base_url();?>admin/goods">Товары</a></li>
 		<li><a href="<?=base_url();?>admin/orders">Заказы</a></li>
