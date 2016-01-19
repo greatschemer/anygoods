@@ -7,60 +7,86 @@ class Cart extends CI_Controller {
 		parent::__construct();
 		//Если загружаем библиотеку корзина то библиотеку сессии можно не грузить (Надеюсь я правильно понял)
 		$this->load->library('cart');
-		$this->load->model('main_model');
-		$this->load->model('cart_model');
+		$this->load->helper('url');
 	}
+
 	//Корзина
 	public function index(){
-		$data['title'] = 'Корзина';
-		if ($this->session->userdata('enter')) {
-			$session = $this->session->userdata('enter');
-			$data['username'] = $session['username'];
-		}
-		$this->view_libraries->view('cart', $data);
+
+		// Корзина пользователя
+		$user_cart = $this->cart->contents();
+
+		$data['cart'] = $this->view_libraries->view('cart', array('cart_items' => $user_cart), true);
+
 	}
 
 	//Добавить в корзину
-	public function addToCart($idGood){
-		
-		if(!empty($idGood) || is_numeric($idGood)){
-			//Проверка товара
-			if($this->main_model->check_goods($idGood)){
-				//добавление товара
-				//Тут пишем логику добавление товара в сессию через Shopping Cart Class
+	public function addToCart()
+	{
+		$data['title'] = 'Добавление товара в корзину';
 
-				//Редирект обратно если товар добавлен
-				if($this->agent->referrer()){
-    				redirect($this->agent->referrer());
-    			}else{
-     				redirect(base_url());
-     			}
-			}else{
-				//Если нет такого товара в БД
-				$data['title'] = 'Ошибка';
-				$data['error'] = 'Товар не найден';
-				$data['link'] = '';
-				$this->view_libraries->view_error($data);
+		$id = $this->input->post('id');
+		$count = $this->input->post('count');
+
+		$this->load->model('main_model');
+		$query = $this->cart_model->getInfoGood($id);
+
+		if ($query) {
+
+			foreach ($query->result() as $row) {
+
+				$data2 = array(
+						'id' => $id,
+						'qty' => $count,
+						'price' => $row->price,
+						'name' => $row->title
+				);
+
+				$this->cart->insert($data2);
+
+
 			}
-			
-		}else{
-			//Если передаем пустое значение или оно не число
-			redirect(base_url());
+			redirect('goods');
 		}
 	}
 
 	//Обновить корзину
 	public function updateCart(){
 
+		$total = $this->cart->total_items();
+
+		$item = $this->input->post('rowid');
+		$qty = $this->input->post('qty');
+
+		for($i=0;$i < $total;$i++)
+		{
+			$data = array(
+					'id' => $item[$i],
+					'qty' => $qty[$i]
+			);
+
+			$this->cart->update($data);
+		}
+
+		redirect('cart');
 	}
 
 	//Очистить корзину
 	public function clearCart(){
 
+		$this->cart->destroy();
+		redirect('cart');
+
 	}
+
 	//Оформление заказа
 	public function checkout(){
 
+//		$data['title'] = 'Корзина';
+//		if ($this->session->userdata('enter')) {
+//			$session = $this->session->userdata('enter');
+//			$data['username'] = $session['username'];
+//		}
 	}
 
 }
